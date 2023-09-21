@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HTTPService} from "./http.service";
 
 @Component({
@@ -6,11 +6,15 @@ import {HTTPService} from "./http.service";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   aritsteCourant: string = "Megadeth"
 
   constructor(
     public HTTPServ: HTTPService
   ) {
+  }
+
+  ngOnInit(): void {
+    this.HTTPServ.GetToken();
   }
 }

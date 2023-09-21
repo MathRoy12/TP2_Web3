@@ -1,5 +1,5 @@
 <ng-form class="row align-content-center align-items-center px-2">
   <h1 class="col">Super musique infinie</h1>
   <input class="form-control col mx-5" [(ngModel)]="this.newArtist" placeholder="Nouvel artiste" name="artist_name">
-  <button class="btn btn-primary col">Ajouter</button>
+  <button class="btn btn-primary col" (click)="AddArtist(newArtist)">Ajouter</button>
 </ng-form>
