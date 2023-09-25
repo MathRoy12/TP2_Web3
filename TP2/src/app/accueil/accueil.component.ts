@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {ArtistsService} from "../artists.service";
 import {HTTPService} from "../http.service";
+import {Artist} from "../artist";
 
 @Component({
   selector: 'app-accueil',
@@ -9,16 +9,26 @@ import {HTTPService} from "../http.service";
 })
 export class AccueilComponent {
   newArtist: string = '';
+  lstArtists: Artist[] = [];
 
-  constructor(public data:ArtistsService,
-              public http: HTTPService) {
+  constructor(public http: HTTPService) {
+    if (!(localStorage["Artists"] == null ||
+      localStorage["Artists"] == undefined ||
+      localStorage["Artists"] == ''))
+      this.lstArtists = JSON.parse(localStorage["Artists"]);
   }
 
   async AddArtist(name: string) {
     await this.http.GetToken()
+    let artistToAdd: Artist = await this.http.LoadArtist(name);
 
-    this.data.lstArtists.push(await this.http.LoadArtist(name))
-    localStorage["Artists"] = JSON.stringify(this.data.lstArtists) ;
+    if (this.lstArtists.length != 0)
+      for (let item of this.lstArtists)
+        if (item.name === artistToAdd.name)
+          throw new Error()
+
+    this.lstArtists.push(artistToAdd);
+    localStorage["Artists"] = JSON.stringify(this.lstArtists);
     this.newArtist = '';
   }
 }

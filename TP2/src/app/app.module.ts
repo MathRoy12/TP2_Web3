@@ -25,9 +25,9 @@ import {ConcertComponent} from './concert/concert.component';
     RouterModule.forRoot([
       {path: '', redirectTo: '/accueil', pathMatch: 'full'},
       {path: 'accueil', component: AccueilComponent},
-      {path: 'artiste/:name', component: ArtisteComponent},
-      {path: ':albumName/album', component: AlbumComponent},
-      {path: ':artistName/concert', component: ConcertComponent},
+      {path: ':artistName/albums', component: ArtisteComponent},
+      {path: ':artistName/album/:albumName', component: AlbumComponent},
+      {path: ':artistName/concerts', component: ConcertComponent},
       {path:'**', component:AccueilComponent}
     ])
   ],

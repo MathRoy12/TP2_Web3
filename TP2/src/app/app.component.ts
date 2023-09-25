@@ -7,7 +7,6 @@ import {HTTPService} from "./http.service";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  aritsteCourant: string = "Megadeth"
 
   constructor(
     public HTTPServ: HTTPService

@@ -1,1 +1,25 @@
+.card {
+  height: 500px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom: 25px;
+  img {
+    height: 75%;
+    width: 90%;
+    object-fit: cover;
+  }
+}
 
+.cards {
+  margin-top: 25px;
+  width: 100%;
+  display: grid;
+  gap: 50px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.boutons{
+  margin-top: 10px;
+  gap: 25px;
+}
