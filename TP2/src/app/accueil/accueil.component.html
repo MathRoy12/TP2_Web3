@@ -5,12 +5,15 @@
 </ng-form>
 
 <div class="cards">
-  <div class="card " *ngFor="let item of this.lstArtists">
-    <h3>{{item.name}}</h3>
-    <img src="{{item.img}}" alt="img Artiste">
-    <ng-form class="row boutons">
-      <a class="btn btn-primary col" href="{{item.name}}/albums">Albums</a>
-      <a class="btn btn-primary col" href="{{item.name}}/concerts">Concerts</a>
-    </ng-form>
-  </div>
+  <span *ngFor="let item of this.lstArtists; let i = index">
+    <div class="card" *ngIf="swirl[i]" [class.roll-in-top]="swirl[i]">
+      <h3>{{item.name}}</h3>
+      <img src="{{item.img}}" alt="img Artiste">
+      <ng-form class="row boutons">
+        <a class="btn btn-primary col" href="{{item.name}}/{{item.id}}/albums">Albums</a>
+        <a class="btn btn-primary col" href="{{item.name}}/concerts">Concerts</a>
+      </ng-form>
+    </div>
+  </span>
 </div>
+

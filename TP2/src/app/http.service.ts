@@ -9,7 +9,7 @@ import {lastValueFrom} from "rxjs";
 })
 export class HTTPService {
 
-  private Token : string = '';
+  private Token: string = '';
 
   constructor(
     public http: HttpClient
@@ -46,14 +46,32 @@ export class HTTPService {
 
     let response = await lastValueFrom(this.http.get<any>('https://api.spotify.com/v1/search?type=artist&offset=0&limit=1&q=' + artistName, httpOptions))
 
-        console.log(response);
-        artist.id = response.artists.items[0].id;
-        artist.name = response.artists.items[0].name;
-        artist.img = response.artists.items[0].images[0].url;
+    console.log(response);
+    artist.id = response.artists.items[0].id;
+    artist.name = response.artists.items[0].name;
+    artist.img = response.artists.items[0].images[0].url;
 
-        return artist
+    return artist
 
 
-    
+  }
+
+  async LoadAlbums(artistId: string): Promise<Album[]> {
+    let albums: Album[] = []
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.Token
+      })
+    };
+
+    let result = await lastValueFrom(this.http.get<any>(`https://api.spotify.com/v1/artists/${artistId}/albums?include_groups=album&limit=50`, httpOptions))
+
+    result.items.forEach((album:any) => {
+      albums.push(new Album(album.name,album.images[0].url,album.id));
+    });
+
+    return albums
   }
 }

@@ -1,1 +1,10 @@
-<p>artiste works!</p>
+<h1>{{this.artistName}}</h1>
+
+<div class="cards">
+  <span *ngFor="let item of this.albums; let i = index">
+    <div (click)="albumClick(item)" class="card" *ngIf="swirl[i]" [class.roll-in-top]="swirl[i]">
+      <h3>{{item.name}}</h3>
+      <img src="{{item.img}}" alt="img Artiste">
+    </div>
+  </span>
+</div>
