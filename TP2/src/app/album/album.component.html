@@ -1,1 +1,8 @@
-<p>album works!</p>
+<h1>{{this.albumName}}</h1>
+
+<ul>
+  <li *ngFor="let item of this.songs" (click)="songClick(item.name)">
+    {{item.name}}
+  </li>
+</ul>
+<app-youtube-player *ngIf="isYoutubeVisible" [videoId]="videoId"></app-youtube-player>

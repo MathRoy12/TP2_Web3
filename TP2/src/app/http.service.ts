@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Artist} from "./artist";
 import {Album} from "./album";
 import {lastValueFrom} from "rxjs";
+import {Song} from "./song";
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import {lastValueFrom} from "rxjs";
 export class HTTPService {
 
   private Token: string = '';
+  private GoogleApiKey = 'AIzaSyB8WPU_Tn_FIyoWQMFfxgsDu1G6960WKas'
 
   constructor(
     public http: HttpClient
@@ -68,10 +70,36 @@ export class HTTPService {
 
     let result = await lastValueFrom(this.http.get<any>(`https://api.spotify.com/v1/artists/${artistId}/albums?include_groups=album&limit=50`, httpOptions))
 
-    result.items.forEach((album:any) => {
-      albums.push(new Album(album.name,album.images[0].url,album.id));
+    result.items.forEach((album: any) => {
+      albums.push(new Album(album.name, album.images[0].url, album.id));
     });
 
     return albums
+  }
+
+  async LoadSong(albumId: string): Promise<Song[]> {
+    let songs: Song[] = [];
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + this.Token
+      })
+    };
+
+    let result = await lastValueFrom(this.http.get<any>(`https://api.spotify.com/v1/albums/${albumId}`, httpOptions));
+
+    console.log(result);
+    result.tracks.items.forEach((track: any) => {
+      songs.push(new Song(track.id, track.name));
+    });
+
+    return songs;
+  }
+
+  async GetYoutubeId(songName: string, artistName: string | null): Promise<string> {
+    let result = await lastValueFrom(this.http.get<any>(`https://www.googleapis.com/youtube/v3/search?type=video&part=id&maxResults=1&key=${this.GoogleApiKey}&q=${songName + " " + artistName}`
+    ));
+    console.log(result.items[0].id.videoId)
+    return result.items[0].id.videoId;
   }
 }

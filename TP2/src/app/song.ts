@@ -3,9 +3,8 @@ import {Album} from "./album";
 
 export class Song {
   constructor(
+    public Id: string,
     public name: string,
-    public artist: Artist,
-    public album: Album
   ) {
   }
 }

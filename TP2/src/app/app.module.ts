@@ -9,6 +9,8 @@ import {AccueilComponent} from './accueil/accueil.component';
 import {ArtisteComponent} from './artiste/artiste.component';
 import {AlbumComponent} from './album/album.component';
 import {ConcertComponent} from './concert/concert.component';
+import {YouTubePlayerModule} from "@angular/youtube-player";
+import { YoutubePlayerComponent } from './youtube-player/youtube-player.component';
 
 @NgModule({
   declarations: [
@@ -16,12 +18,14 @@ import {ConcertComponent} from './concert/concert.component';
     AccueilComponent,
     ArtisteComponent,
     AlbumComponent,
-    ConcertComponent
+    ConcertComponent,
+    YoutubePlayerComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     FormsModule,
+    YouTubePlayerModule,
     RouterModule.forRoot([
       {path: '', redirectTo: '/accueil', pathMatch: 'full'},
       {path: 'accueil', component: AccueilComponent},
