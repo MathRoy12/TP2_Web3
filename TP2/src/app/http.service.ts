@@ -4,6 +4,7 @@ import {Artist} from "./artist";
 import {Album} from "./album";
 import {lastValueFrom} from "rxjs";
 import {Song} from "./song";
+import {Concert} from "./concert";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class HTTPService {
 
   private Token: string = '';
   private GoogleApiKey = 'AIzaSyB8WPU_Tn_FIyoWQMFfxgsDu1G6960WKas'
+  private BandInTownApiKey = '2b32475766802ac01eefda45e9e42ea0'
 
   constructor(
     public http: HttpClient
@@ -31,7 +33,6 @@ export class HTTPService {
 
     let res = await lastValueFrom(this.http.post<any>('https://accounts.spotify.com/api/token', body.toString(), httpOptions))
 
-    console.log(res);
     this.Token = res.access_token;
 
   }
@@ -48,7 +49,6 @@ export class HTTPService {
 
     let response = await lastValueFrom(this.http.get<any>('https://api.spotify.com/v1/search?type=artist&offset=0&limit=1&q=' + artistName, httpOptions))
 
-    console.log(response);
     artist.id = response.artists.items[0].id;
     artist.name = response.artists.items[0].name;
     artist.img = response.artists.items[0].images[0].url;
@@ -77,7 +77,7 @@ export class HTTPService {
     return albums
   }
 
-  async LoadSong(albumId: string): Promise<Song[]> {
+  async LoadSongs(albumId: string): Promise<Song[]> {
     let songs: Song[] = [];
 
     const httpOptions = {
@@ -88,7 +88,6 @@ export class HTTPService {
 
     let result = await lastValueFrom(this.http.get<any>(`https://api.spotify.com/v1/albums/${albumId}`, httpOptions));
 
-    console.log(result);
     result.tracks.items.forEach((track: any) => {
       songs.push(new Song(track.id, track.name));
     });
@@ -99,7 +98,18 @@ export class HTTPService {
   async GetYoutubeId(songName: string, artistName: string | null): Promise<string> {
     let result = await lastValueFrom(this.http.get<any>(`https://www.googleapis.com/youtube/v3/search?type=video&part=id&maxResults=1&key=${this.GoogleApiKey}&q=${songName + " " + artistName}`
     ));
-    console.log(result.items[0].id.videoId)
     return result.items[0].id.videoId;
+  }
+
+  async LoadConcerts(artistName: string): Promise<Concert[]> {
+    let concerts: Concert[] = [];
+
+    let result :any = await lastValueFrom(this.http.get(`https://rest.bandsintown.com/artists/${artistName}/events?app_id=${this.BandInTownApiKey}`));
+
+    result.forEach((item:any) => {
+      concerts.push(new Concert(item.venue.name,`${item.venue.street_address} ${item.venue.location}, ${item.venue.country}`,+item.venue.latitude,+item.venue.longitude))
+    })
+
+    return concerts;
   }
 }

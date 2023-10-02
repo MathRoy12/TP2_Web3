@@ -11,6 +11,7 @@ import {AlbumComponent} from './album/album.component';
 import {ConcertComponent} from './concert/concert.component';
 import {YouTubePlayerModule} from "@angular/youtube-player";
 import { YoutubePlayerComponent } from './youtube-player/youtube-player.component';
+import {GoogleMapsModule} from "@angular/google-maps";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { YoutubePlayerComponent } from './youtube-player/youtube-player.componen
     BrowserModule,
     FormsModule,
     YouTubePlayerModule,
+    GoogleMapsModule,
     RouterModule.forRoot([
       {path: '', redirectTo: '/accueil', pathMatch: 'full'},
       {path: 'accueil', component: AccueilComponent},

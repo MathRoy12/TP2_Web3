@@ -1,0 +1,23 @@
+.card {
+  height: 400px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom: 25px;
+  cursor: pointer;
+  google-map {
+    object-fit: cover;
+  }
+
+  p{
+    color: black;
+  }
+}
+
+.cards {
+  margin-top: 25px;
+  width: 100%;
+  display: grid;
+  gap: 50px;
+  grid-template-columns: repeat(3, 1fr);
+}

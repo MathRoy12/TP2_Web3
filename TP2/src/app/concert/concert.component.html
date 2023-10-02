@@ -1,1 +1,18 @@
-<p>concert works!</p>
+<h1>{{artistName}}</h1>
+
+<div class="cards">
+  <div *ngFor="let item of concerts" class="card">
+    <h3>{{item.placeName}}</h3>
+    <google-map
+    [center]="LngLat(item.lat,item.lng)"
+    [zoom]="5"
+    width="90%"
+    height="75%"
+    style="height: 75%; width: 90%">
+      <map-marker
+      [position]="LngLat(item.lat,item.lng)">
+      </map-marker>
+    </google-map>
+    <p>{{item.address}}</p>
+  </div>
+</div>

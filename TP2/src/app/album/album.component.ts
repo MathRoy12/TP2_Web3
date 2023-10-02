@@ -39,7 +39,7 @@ export class AlbumComponent implements OnInit {
 
     await this.http.GetToken();
     if (this.albumId != null) {
-      this.songs = await this.http.LoadSong(this.albumId);
+      this.songs = await this.http.LoadSongs(this.albumId);
     }
     console.log(this.songs);
   }
