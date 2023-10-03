@@ -1,7 +1,7 @@
 <ng-form class="row align-content-center align-items-center px-2">
-  <h1 class="col">Artistes</h1>
+  <h1 class="col">{{"app.accueil.title" | translate}}</h1>
   <input class="form-control col mx-5" [(ngModel)]="this.newArtist" placeholder="Nouvel artiste" name="artist_name">
-  <button class="btn btn-primary col" (click)="AddArtist(newArtist)">Ajouter</button>
+  <button class="btn btn-primary col" (click)="AddArtist(newArtist)">{{'app.accueil.add' | translate}}</button>
 </ng-form>
 
 <div class="cards">

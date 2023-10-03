@@ -1,19 +1,25 @@
-import {Component, OnInit} from '@angular/core';
-import {HTTPService} from "./http.service";
+import {Component} from '@angular/core';
+import {TranslateService} from "@ngx-translate/core";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
   constructor(
-    public HTTPServ: HTTPService
+    public router:Router,
+    public translate: TranslateService
   ) {
+    translate.setDefaultLang('fr');
   }
 
-  ngOnInit(): void {
-    this.HTTPServ.GetToken();
+  logoClick(){
+    this.router.navigate(["/accueil"])
+  }
+  useLanguage(language: string) {
+    this.translate.use(language);
   }
 }

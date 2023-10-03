@@ -1,0 +1,9 @@
+{
+  "app": {
+    "title": "Super musique infinie",
+    "accueil" : {
+      "title": "Artiste",
+      "add": "Ajouter"
+    }
+  }
+}

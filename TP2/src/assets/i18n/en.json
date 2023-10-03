@@ -1,0 +1,9 @@
+{
+  "app": {
+    "title": "Great Infinite Music",
+    "accueil" : {
+      "title": "Artist",
+      "add": "Add"
+    }
+  }
+}
