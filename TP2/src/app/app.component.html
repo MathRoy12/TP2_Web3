@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col row align-items-center">
         <img (click)="logoClick()" class="logo col-auto" src="../assets/img/SpotipocheLogo.png" alt="logo">
-        <h4 class="col">Super musique Infinie</h4>
+        <h4 class="col">{{'app.title' | translate}}</h4>
       </div>
       <div class="lang col-auto">
         <button (click)="useLanguage('fr')" *ngIf='translate.currentLang == "en"'>français</button>
